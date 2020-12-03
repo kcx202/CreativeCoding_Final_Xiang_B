@@ -74,7 +74,9 @@ class hunter {
 
   // Method to update location
   update() {
-    this.hunterbox.setCollider('rectangle', this.position.x, this.position.y, 10, 10);
+    this.hunterbox.position.x = (this.position.x);
+    this.hunterbox.position.y = (this.position.y);
+    this.hunterbox.setCollider('rectangle', 0, 0, 10, 10);
     // Update velocity
     this.velocity.add(this.acceleration);
     // Limit speed

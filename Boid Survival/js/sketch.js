@@ -44,7 +44,8 @@ function draw() {
   p1.move();
   p1.display();
   p1.borders();
-
+  drawSprites();
+  
   p1.playerbox.debug = true;
 }
 

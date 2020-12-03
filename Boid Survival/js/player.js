@@ -10,7 +10,9 @@ class player {
   } // constructor
 
   update() {
-    this.playerbox.setCollider('rectangle', this.position.x, this.position.y, 10, 10);
+    this.playerbox.position.x = (this.position.x);
+    this.playerbox.position.y = (this.position.y);
+    this.playerbox.setCollider('rectangle', 0, 0, 10, 10);
     if(moveUp === true) {
       this.applyForce(createVector(0,-this.maxforce));
     }
