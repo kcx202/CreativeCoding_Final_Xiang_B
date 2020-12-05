@@ -1,8 +1,14 @@
+let timer = 0;
+let score = 0;
 let hunterset = [];
-let hunterNum = 2;
-let hunterSeperation =2;
+let hunterNum = 10; // Starting number of hunters
+let hunterSeperation = 2; // Distance between hunters
 let hunterForce = 1;
 let hunterSpace =20;
+let debugBool = false;
+let killNum = 1;
+var temp = 0;
+
 
 function setup() {
   createCanvas(1200, 600);
@@ -18,7 +24,23 @@ function setup() {
 
 function draw() {
   background(51);
+  if (millis() >= 2000+timer) {
+    hunterset.shift();
+    //for (var i in hunterset) {
+    //  if (hunterset[i].value == killNum) {
+    //    hunterset[i].hunter.remove();
+    //    break; //Stop this loop, we found it!
+    //  }
+    //}
+    print(hunterset);
+    killNum++;
+    score = score + 10;
+    text(score,20,20);
+    timer = millis();
+  }
   controls();
+  scoreCounter();
+
   let playerLoc = createVector(p1.position.x, p1.position.y);
 
   // Draw an ellipse at the mouse position
@@ -32,12 +54,7 @@ function draw() {
     v.update();
     v.borders();
     v.display();
-    v.hunterbox.debug = true;
-    if(v.hunterbox.overlap(p1.playerbox)){
-      fill(150,0,0);
-    }else {
-      fill(20);
-    }
+    v.hunterbox.debug = debugBool;
   }
 
   p1.update();
@@ -45,29 +62,14 @@ function draw() {
   p1.display();
   p1.borders();
   drawSprites();
-  
-  p1.playerbox.debug = true;
+
+  p1.playerbox.debug = debugBool;
 }
 
-function controls() {
-  if(keyIsDown(UP_ARROW)) {
-    moveUp = true;
-  } else {
-    moveUp = false;
+function scoreCounter() {
+  if (millis() >= 2000+temp) {
+    score = score + 10;
+    temp = millis();
   }
-    if(keyIsDown(DOWN_ARROW)){
-    moveDown = true;
-  } else {
-    moveDown = false;
-  }
-    if(keyIsDown(LEFT_ARROW)) {
-    moveLeft = true;
-  } else {
-    moveLeft = false;
-  }
-    if(keyIsDown(RIGHT_ARROW)) {
-    moveRight = true;
-  } else {
-    moveRight = false;
-  }
-} //keypressed
+  text('Score:'+score,20,20)
+}

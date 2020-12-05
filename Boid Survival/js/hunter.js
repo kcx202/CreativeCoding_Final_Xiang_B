@@ -88,7 +88,12 @@ class hunter {
 
   display() {
   	let theta = this.velocity.heading() + PI / 2;
-    fill(20);
+    //if(this.hunterbox.overlap(p1.playerbox)){
+    //  fill(150,0,0);
+    //  print('hit')
+    //}else {
+    //  fill(20);
+    //}
     stroke(200);
     strokeWeight(2);
     push();
