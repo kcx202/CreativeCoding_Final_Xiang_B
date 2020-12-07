@@ -88,9 +88,11 @@ class hunter {
 
   display() {
   	let theta = this.velocity.heading() + PI / 2;
-    //if(this.hunterbox.overlap(p1.playerbox)){
+    if(this.hunterbox.overlap(p1.playerbox)){
     //  fill(150,0,0);
-    //  print('hit')
+    print('hit')
+    menu = 3
+    }
     //}else {
     //  fill(20);
     //}
@@ -101,7 +103,7 @@ class hunter {
     beginShape();
     rotate(theta);
     vertex(0, -this.size * 2);
-    vertex(-this.size, this.size * 2);
+    //vertex(-this.size, this.size * 2); looked kinda cool
     vertex(0, this.size);
     vertex(this.size, this.size * 2);
     endShape(CLOSE);
