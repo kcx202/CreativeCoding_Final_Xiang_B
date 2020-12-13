@@ -9,7 +9,7 @@ class hunter {
     this.maxforce = 0.15; // Maximum steering force
     this.acceleration = createVector(0, 0);
     this.velocity = createVector(0, 0);
-    this.hunterbox = createSprite(this.position.x, this.position.y, this.size, this.size);
+		this.death = false;
   }
 
   applyBehaviors(hunters,target) {
@@ -74,9 +74,6 @@ class hunter {
 
   // Method to update location
   update() {
-    this.hunterbox.position.x = (this.position.x);
-    this.hunterbox.position.y = (this.position.y);
-    this.hunterbox.setCollider('rectangle', 0, 0, 10, 10);
     // Update velocity
     this.velocity.add(this.acceleration);
     // Limit speed
@@ -84,15 +81,21 @@ class hunter {
     this.position.add(this.velocity);
     // Reset accelertion to 0 each cycle
     this.acceleration.mult(0);
+		//print(this.death);
+		//if (this.death == true){
+		//	this.hunterbox.remove();
+		//}
+
   }
 
   display() {
   	let theta = this.velocity.heading() + PI / 2;
-    if(this.hunterbox.overlap(p1.playerbox)){
+		collDetect(this.position.x,this.position.y,p1.position.x,p1.position.y)
+    //if(this.hunterbox.overlap(p1.playerbox)){
     //  fill(150,0,0);
-    print('hit')
-    menu = 3
-    }
+    //print('hit')
+    //menu = 3
+    //}
     //}else {
     //  fill(20);
     //}

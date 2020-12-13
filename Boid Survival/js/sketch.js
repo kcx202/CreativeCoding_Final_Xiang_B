@@ -6,29 +6,14 @@ let hunterNum = 1; // Starting number of hunters
 let hunterSeperation = 2; // Distance between hunters
 let hunterForce = 1;
 let hunterSpace =20;
-let debugBool = false;
-let spawnWidth = 0;
-let spawnHeight = 0;
 var temp = 0;
-let menu = 0
-
+let menu = 0;
 
 function setup() {
-  createCanvas(1000, 600);
+  createCanvas(1000, 550);
+	boxset = new Group();
   for (let i = 0; i < hunterNum; i++) {
-    spawnWidth = random(width);
-    spawnHeight = random(height);
-    if (spawnWidth < width/2){
-      spawnWidth = 10;
-    } else {
-      spawnWidth = width-10;
-    }
-    if (spawnHeight < height/2){
-      spawnWidth = 10;
-    } else {
-      spawnWidth = height-10;
-    }
-    hunterset.push(new hunter(spawnWidth, spawnHeight));
+    hunterset.push(new hunter(random(width), random(height)));
   }
   moveUp = false;
   moveDown = false;
@@ -74,7 +59,7 @@ function draw() {
     textSize(30)
     text('1. You are being hunted. Flee from the hunters.', 50, 150)
     text('2. Move your ship using arrow keys to avoid them as long as you can', 50, 200)
-    text('3. Collect orbs to destroy the hunters', 50, 250)
+    text('3. Collect orbs to destroy the hunters and earn bonus points!', 50, 250)
     text('4. Survive.', 50, 300)
     if (mouseButton == RIGHT) {
       menu = 0
@@ -88,8 +73,10 @@ function draw() {
     textSize(20)
     text('Right Click to return to main menu', width/2, 30)
     text('Score:'+score, width/2, height / 2 + 50)
-    text('Please refresh, sorry I havent figured out how to reset yet', width/2, height-50)
+    text('Better luck next time.', width/2, height-50)
+    //text('Please refresh, sorry I havent figured out how to reset yet', width/2, height-50)
     if (mouseButton == RIGHT) {
+      reset();
       menu = 0
     }
   }
@@ -113,11 +100,14 @@ function mouseClicked() {
 
 function gameloop(){
   background(51);
-  if (millis() >= 5000+timer) {
+  if (millis() >= 2000+timer) {
     hunterset.push(new hunter(random(width), random(height)));
-    // this line is for killing hunters, not quite sure how to delete
-    // the hitbox howver :(
-    // hunterset.shift();
+
+    if (foodset.length < 1){
+      foodset.push(new food(random(width), random(height)));
+    }
+    // this line is for killing hunters
+		// hunterset.shift();
     score = score + 10;
     text(score,20,20);
     timer = millis();
@@ -144,7 +134,6 @@ function gameloop(){
     v.update();
     v.borders();
     v.display();
-    v.hunterbox.debug = debugBool;
   }
   for (let v of foodset) {
     v.display();
@@ -153,9 +142,7 @@ function gameloop(){
   p1.move();
   p1.display();
   p1.borders();
-  drawSprites();
 
-  p1.playerbox.debug = debugBool;
 }
 
 function scoreCounter() {
@@ -164,4 +151,32 @@ function scoreCounter() {
     temp = millis();
   }
   text('Score:'+score,20,20)
+}
+
+function collDetect(x1,y1,x2,y2) {
+  var d = dist(x1, y1, x2, y2);
+	  if (d < 10) {
+		menu = 3
+  }
+}
+
+function eatFood(x1,y1,x2,y2) {
+  var d = dist(x1, y1, x2, y2);
+	  if (d < 15) {
+    hunterset.shift();
+    foodset.shift();
+    score = score + 50;
+  }
+}
+
+function reset() {
+  timer = 5000;
+  score = 0;
+  hunterset = [];
+  foodset = [];
+  hunterNum = 1; // Starting number of hunters
+  temp = 0;
+  menu = 0;
+  p1.position.x = width/2;
+  p1.position.y = height/2;
 }

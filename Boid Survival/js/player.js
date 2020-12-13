@@ -5,14 +5,9 @@ class player {
     this.acceleration = createVector(0,0);
     this.size = 6;
     this.maxspeed = 5;
-    this.maxforce = 0.5;
-    this.playerbox = createSprite(this.position.x, this.position.y, this.size, this.size);
-  } // constructor
+    this.maxforce = 0.5;  } // constructor
 
   update() {
-    this.playerbox.position.x = (this.position.x);
-    this.playerbox.position.y = (this.position.y);
-    this.playerbox.setCollider('rectangle', 0, 0, 10, 10);
     if(moveUp === true) {
       this.applyForce(createVector(0,-this.maxforce));
     }
@@ -50,6 +45,8 @@ class player {
     vertex(0, this.size);
     vertex(this.size, this.size * 2);
     endShape(CLOSE);
+    fill(90,177,187);
+    ellipse(0,0,10,10)
     pop();
   } // display
 
