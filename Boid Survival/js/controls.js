@@ -1,4 +1,4 @@
-function controls() {
+function controls() { // Player controls
   if(keyIsDown(UP_ARROW)) {
     moveUp = true;
   } else {
@@ -19,7 +19,5 @@ function controls() {
   } else {
     moveRight = false;
   }
-    if(keyIsDown(32)) {
-    debugBool = debugBool? false : true;
-  }
+
 }

@@ -49,10 +49,10 @@ class hunter {
     // Average -- divide by how many
     if (count > 0) {
       sum.div(count);
-      // Our desired vector is the average scaled to maximum speed
+      // Take the direction vector and scale to maxspeed
       sum.normalize();
       sum.mult(this.maxspeed);
-      // Implement Reynolds: Steering = Desired - Velocity
+      // Desired minus the velocity gives the steering direction
       sum.sub(this.velocity);
       sum.limit(this.maxforce);
     }
@@ -72,16 +72,15 @@ class hunter {
     return steer;
   }
 
-  // Method to update location
   update() {
-    // Update velocity
+    // Update velocity by adding the acceleration
     this.velocity.add(this.acceleration);
-    // Limit speed
+    // Limit speed to be under the maxspeed
     this.velocity.limit(this.maxspeed);
     this.position.add(this.velocity);
     // Reset accelertion to 0 each cycle
     this.acceleration.mult(0);
-		//print(this.death);
+		//print(this.death); // remnants of code trying to kill hunters
 		//if (this.death == true){
 		//	this.hunterbox.remove();
 		//}
@@ -89,31 +88,26 @@ class hunter {
   }
 
   display() {
+    // gives the orientation of the velocity vector to face the hunter
   	let theta = this.velocity.heading() + PI / 2;
+    // test if the hunter has collided with the player
 		collDetect(this.position.x,this.position.y,p1.position.x,p1.position.y)
-    //if(this.hunterbox.overlap(p1.playerbox)){
-    //  fill(150,0,0);
-    //print('hit')
-    //menu = 3
-    //}
-    //}else {
-    //  fill(20);
-    //}
-    stroke(200);
+    fill(245,0,49);
+    stroke(245,0,49);
     strokeWeight(2);
+    //drawing the hunters at their locations
     push();
     translate(this.position.x, this.position.y);
     beginShape();
     rotate(theta);
     vertex(0, -this.size * 2);
-    //vertex(-this.size, this.size * 2); looked kinda cool
     vertex(0, this.size);
     vertex(this.size, this.size * 2);
     endShape(CLOSE);
     pop();
   }
 
-  // Wraparound
+  // allow objects to wrap around the border of the screen
   borders() {
     if (this.position.x < -this.size) this.position.x = width + this.size;
     if (this.position.y < -this.size) this.position.y = height + this.size;

@@ -5,9 +5,10 @@ class player {
     this.acceleration = createVector(0,0);
     this.size = 6;
     this.maxspeed = 5;
-    this.maxforce = 0.5;  } // constructor
+    this.maxforce = 0.5;  }
 
   update() {
+    //updating all the controls and applies the forces
     if(moveUp === true) {
       this.applyForce(createVector(0,-this.maxforce));
     }
@@ -23,9 +24,12 @@ class player {
   }
 
   move() {
+    //adds acceleration to velocity then limits it to max speed
     this.velocity.add(this.acceleration);
     this.velocity.limit(this.maxspeed);
+    // adds the velocity to the current positin
     this.position.add(this.velocity);
+    // reset the acceleration for every cycle
     this.acceleration.mult(0);
   } // move
 
@@ -34,8 +38,11 @@ class player {
   } // applyForce
 
   display() {
+    // orientation of player
     let theta = this.velocity.heading() + PI / 2;
-    fill(150);
+    fill(111,255,233);
+    stroke(111,255,233);
+    // drawing the player
     push();
     translate(this.position.x, this.position.y);
     beginShape();
@@ -46,7 +53,12 @@ class player {
     vertex(this.size, this.size * 2);
     endShape(CLOSE);
     fill(90,177,187);
-    ellipse(0,0,10,10)
+    beginShape();
+    vertex(0, -this.size );
+    vertex(-this.size, this.size );
+    vertex(0, this.size/2);
+    vertex(this.size, this.size );
+    endShape(CLOSE);
     pop();
   } // display
 
