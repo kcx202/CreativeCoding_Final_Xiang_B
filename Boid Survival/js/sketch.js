@@ -14,7 +14,6 @@ let spawnRate = 2500; // Time delay for hunters spawns
 
 function setup() {
   createCanvas(1000, 550);
-	boxset = new Group();
   moveUp = false;
   moveDown = false;
   moveRight = false;
@@ -27,12 +26,13 @@ function setup() {
 
 function draw() {
   background(90,177,187); //Draws the background and all the buttons
+  rectMode(CENTER);
   fill(30,39,73);
-  rect(50, 100, 200, 75,25,25);
+  rect(150, 135, 200, 80,25,25);
   fill(39,52,105);
-  rect(50, 250, 200, 75,25,25);
+  rect(150, 290, 200, 80,25,25);
   fill(48,52,63);
-  rect(50, 400, 200, 75,25,25);
+  rect(150, 435, 200, 80,25,25);
   textSize(50)
   fill(255);
   textAlign(CENTER);
@@ -40,7 +40,7 @@ function draw() {
   textSize(26);
   text('INSTRUCTIONS', 150, 300);
   textSize(35);
-  text('Settings', 150, 450);
+  text('Difficulty', 150, 450);
   textSize(70);
   text('COOL GAME', 600, 200);
   text('TITLE', 600, 300);
@@ -48,7 +48,7 @@ function draw() {
   text('and a really awesome description that follows that shows wittiness and creativity', 600, 350);
   text('by Kevin Xiang', 600, 380);
   textAlign(LEFT);
-
+  noStroke();
 
   if (menu == 1) { // gamescreen
     gameloop();
@@ -123,17 +123,17 @@ function mouseClicked() { // Button interaction on main screen
   }
   if (menu == 4) {
     if (mouseX < width/2+100 && mouseX > width/2-100) {
-      if (mouseY > 90 && mouseY < 170) {
+      if (mouseY > 95 && mouseY < 165) {
         reset();
         spawnRate = 2500
         menu = 0
       }
-      if (mouseY > 210 && mouseY < 290) {
+      if (mouseY > 250 && mouseY < 330) {
         reset();
         spawnRate = 1500
         menu = 0
       }
-      if (mouseY > 330 && mouseY < 410) {
+      if (mouseY > 395 && mouseY < 475) {
         reset();
         spawnRate = 500
         menu = 0
@@ -259,6 +259,7 @@ function reset() { // resets the scene
   hunterNum = 1;
   temp = 0;
   menu = 0;
+
   p1.position.x = width/2;
   p1.position.y = height/2;
   for (let i = 0; i < hunterNum; i++) { // spawns the starting number of hunters

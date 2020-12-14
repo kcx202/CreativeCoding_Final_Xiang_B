@@ -19,5 +19,4 @@ function controls() { // Player controls
   } else {
     moveRight = false;
   }
-
 }
